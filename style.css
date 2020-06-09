@@ -12,9 +12,9 @@ body {
 }
 
 .clock {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
-    right: -15%;
+    right: -15%; */
     transform: translateX(-50%) translateY(-50%);
     font-family: Orbitron;
     letter-spacing: 7px;
@@ -37,4 +37,8 @@ body {
 .p-relative{
     position: relative;
     margin-top: 5%;
+}
+
+canvas{
+    position: absolute;
 }

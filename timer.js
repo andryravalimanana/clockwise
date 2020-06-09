@@ -1,128 +1,72 @@
-let targets = [
-    {
-        hour: 6,
-        title: "Sleeping time",
-        color: '#1B3D61'
-    },
-    {
-        hour: 9,
-        title: "Morning Self-Care",
-        color: '#1E9FCE'
-    },
-    {
-        hour: 12,
-        title: "Working time",
-        color: '#529F8E'
-    },
-    {
-        hour: 13,
-        title: "Break time",
-        color: '#FCCD57'
-    },
-    {
-        hour: 18,
-        title: "Working time",
-        color: '#529F8E'
-    },
-    {
-        hour: 21,
-        title: "Thinking time & Planning",
-        color: '#DD8DD7'
-    }
-];
+const HEIGHT = screen.height * 0.7;
+const WIDTH = screen.height * 0.7;
+const RADIUS = HEIGHT * 0.90 / 2;
 
-var hCanvas = document.getElementById("hourCanvas");
-var mCanvas = document.getElementById("minuteCanvas");
-hCanvas.height = screen.height * 0.7;
-hCanvas.width = screen.height * 0.7;
-mCanvas.height = screen.height * 0.7;
-mCanvas.width = screen.height * 0.7;
-var hCtx = hCanvas.getContext("2d");
-var mCtx = mCanvas.getContext("2d");
-var color = '#1E9FCE';
-var title = '';
-var radius = hCanvas.height / 2;
-hCtx.translate(radius, radius);
-mCtx.translate(radius, radius);
-radius = radius * 0.90
+var canvas = document.getElementById("canvas");
+canvas.height = HEIGHT;
+canvas.width = WIDTH;
+var ctx = canvas.getContext("2d");
+ctx.translate(RADIUS/0.9, RADIUS/0.9);
+
 setInterval(drawClock, 1000);
 
+var color = '#1E9FCE';
+var title = '';
+
 function drawClock() {
-    var target = 6;
-    const now = new Date();
-    var hour = now.getHours();
-    // var hour = 7;
-    for (let index = 0; index < targets.length; index++) {
-        const t = targets[index];
-        if (hour < t.hour) {
-            target = t.hour;
-            color = t.color+'9e';
-            title = t.title;
-            document.getElementById("title").innerText = title;
-            break;
-        } else {
-            target = targets[0].hour;
-            color = targets[0].color+'9e';
-            title = targets[0].title;
-            document.getElementById("title").innerText = title;
-        }
-    }
-    drawFace(hCtx, radius);
-    drawFace(mCtx, radius);
-    drawTime(hCtx, radius, target);
-    drawTime(mCtx, radius, target);
-    drawNumbers(hCtx, radius, hCanvas);
-    drawNumbers(mCtx, radius, mCanvas);
-    drawDelimiter(radius);
+    drawFace(ctx, RADIUS);
+    drawTime(ctx, RADIUS, target);
+    drawNumbers(ctx, RADIUS);
+    drawDelimiter(RADIUS);
 }
 
-function drawDelimiter(radius) {
+function drawDelimiter(RADIUS) {
     for (let index = 1; index < 13; index++) {
-        drawLineInNumber(index, radius * 0.007);
+        drawLineInNumber(index, RADIUS * 0.007);
     }
 }
 
-function drawFace(ctx, radius) {
+function drawFace(ctx, RADIUS) {
     var grad;
     ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+    ctx.arc(0, 0, RADIUS, 0, 2 * Math.PI);
     ctx.fillStyle = 'white';
     ctx.fill();
-    grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+    grad = ctx.createRadialGradient(0, 0, RADIUS * 0.95, 0, 0, RADIUS * 1.05);
     grad.addColorStop(0, '#333');
     grad.addColorStop(0.5, 'white');
     grad.addColorStop(1, '#333');
     ctx.strokeStyle = grad;
-    ctx.lineWidth = radius * 0.1;
+    ctx.lineWidth = RADIUS * 0.1;
     ctx.stroke();
     ctx.beginPath();
-    ctx.arc(0, 0, radius * 0.05, 0, 2 * Math.PI);
+    ctx.arc(0, 0, RADIUS * 0.05, 0, 2 * Math.PI);
     ctx.fillStyle = '#333';
     ctx.fill();
 }
 
-function drawNumbers(ctx, radius, canvas) {
+function drawNumbers(ctx, RADIUS) {
     var ang;
     var num;
     ctx.beginPath();
-    ctx.font = radius * 0.15 + "px arial";
+    ctx.font = RADIUS * 0.15 + "px arial";
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
     for (num = 1; num < 13; num++) {
         ang = num * Math.PI / 6;
         ctx.rotate(ang);
-        ctx.translate(0, -radius * 0.85);
+        ctx.translate(0, -RADIUS * 0.85);
         ctx.rotate(-ang);
         ctx.fillText(num.toString(), 0, 0);
         ctx.rotate(ang);
-        ctx.translate(0, radius * 0.85);
+        ctx.translate(0, RADIUS * 0.85);
         ctx.rotate(-ang);
         canvas.fillStyle = "#ff00ff";
         ctx.fill();
     }
 }
 
-function drawTime(ctx, radius, target) {
+function drawTime(ctx, RADIUS, target) {
     var now = new Date();
     var hour = now.getHours();
     var minute = now.getMinutes();
@@ -136,8 +80,8 @@ function drawTime(ctx, radius, target) {
     // hourFloat = 7;
     hourFloat = hourFloat % 12;
     target = target % 12;
-    drawHand(ctx, hour, radius, radius * 0.007, "red");
-    drawHourBock(radius, hourFloat, target);
+    drawHand(ctx, hour, RADIUS, RADIUS * 0.007, "red");
+    drawHourBock(RADIUS, hourFloat, target);
     const leftHour = time_convert(((target - hourFloat < 0)? (12 - hourFloat + target)*60:(target - hourFloat) * 60));
     document.getElementById("MyClockDisplay").innerText = leftHour;
 }
@@ -175,17 +119,17 @@ function drawLineInNumber(number, height) {
     //Target
     target = target % 12;
     target = (target * Math.PI / 30) * 5;
-    drawHand(ctx, target, radius, height);
+    drawHand(ctx, target, RADIUS, height);
 }
 
-function drawHourBock(radius, hour, target) {
-    drawLineInNumber(target, radius * 0.007);
+function drawHourBock(RADIUS, hour, target) {
+    drawLineInNumber(target, RADIUS * 0.007);
     hour = hour - 3;
     target = target - 3;
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.fillStyle = color;
-    ctx.arc(0, 0, radius * 0.95, hour * Math.PI / 6, target * Math.PI / 6);
+    ctx.arc(0, 0, RADIUS * 0.95, hour * Math.PI / 6, target * Math.PI / 6);
     ctx.fill();
     ctx.fillStyle = "#000";
 }
