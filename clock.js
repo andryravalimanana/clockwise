@@ -1,5 +1,5 @@
 class Clock {
-    constructor(id, height, width, positions) {
+    constructor(id, height, width, positions, numberFactor=1, showMinuteSeparator=false) {
         this.id = id;
         this.width = width;
         this.height = height;
@@ -7,7 +7,9 @@ class Clock {
         this.radius = this.height * 0.90 / 2;
         this.blockColor = 'red';
         this.target = 9;
+        this.showMinuteSeparator = showMinuteSeparator;
         this.t = 12;
+        this.numberFactor = numberFactor;
         this._initClock();
         this.setTarget(22);
         this.setTime(21);
@@ -15,8 +17,6 @@ class Clock {
 
     setTarget(target){
         this.target = target - 3;
-        
-        // this._drawHourBock(this.hour, this.target);
     }
 
     setTime(t){
@@ -69,7 +69,7 @@ class Clock {
         this.ctx.lineWidth =  this.radius * 0.1;
         this.ctx.stroke();
         this.ctx.beginPath();
-        this.ctx.arc(0, 0,  this.radius * 0.05, 0, 2 * Math.PI);
+        // this.ctx.arc(0, 0,  this.radius * 0.05, 0, 2 * Math.PI);
         this.ctx.fillStyle = '#333';
         this.ctx.fill();
     }
@@ -86,7 +86,11 @@ class Clock {
             this.ctx.rotate(ang);
             this.ctx.translate(0, -this.radius * 0.85);
             this.ctx.rotate(-ang);
-            this.ctx.fillText(num.toString(), 0, 0);
+            if(this.numberFactor != 1){
+                this.ctx.fillText((60-num*this.numberFactor).toString(), 0, 0);
+            }else{
+                this.ctx.fillText(num.toString(), 0, 0);
+            }
             this.ctx.rotate(ang);
             this.ctx.translate(0, this.radius * 0.85);
             this.ctx.rotate(-ang);
@@ -98,6 +102,11 @@ class Clock {
     _drawDelimiter() {
         for (let index = 1; index < 13; index++) {
             this._drawLineInNumber(index, this.radius * 0.007);
+            if(this.showMinuteSeparator){
+                for (let j = 1; j < 5; j++) {
+                    this._drawLineInNumber(j/5+index, this.radius * 0.0004);
+                }
+            } 
         }
     }
 

@@ -36,7 +36,8 @@ body {
 
 .p-relative{
     position: relative;
-    margin-top: 5%;
+    padding-top: 5%;
+    margin: auto;
 }
 
 canvas{

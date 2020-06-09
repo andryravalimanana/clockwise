@@ -31,8 +31,8 @@ var targets = [
     }
 ];
 
-let hour = 20;
-let minute = 55;
+// let hour = 17;
+// let minute = 55;
 const height =  screen.height * 0.5;
 const positions = {
     top: "60%",
@@ -42,33 +42,36 @@ const positions2 = {
     top: "50%",
     left: "8%"
 };
-let minuteCanvas = new Clock("minuteCanvas", height, height, positions2);
+let minuteCanvas = new Clock("minuteCanvas", height, height, positions2, 5, true);
 let hourCanvas = new Clock("hourCanvas", height * 0.4, height  * 0.4, positions);
 
 setInterval(drawClock, 1000);
 
 function drawClock() {
-    // const now = new Date();
-    // const hour = now.getHours();
-    // const minute = now.getMinutes()/5;
-    minute++;
-    if(minute >= 60){
-        hour++;
-        minute = 0;
+    const now = new Date();
+    let hour = now.getHours();
+    let minute = now.getMinutes()/5;
+    // minute++;
+    // if(minute >= 60){
+    //     hour++;
+    //     minute = 0;
+    // }
+    // m = minute/5;
+    if(hour >= 21){
+        hour = hour - 24;
     }
-    m = minute/5;
     console.log(hour+":"+minute);
-
     for (let index = 0; index < targets.length; index++) {
         const t = targets[index];
         if(hour < t.hour){
             minuteCanvas.setBlockColor(t.color);
             hourCanvas.setBlockColor(t.color);
             hourCanvas.setTarget(t.hour);
+            document.getElementById("title").innerText = t.title;
             break;
         }
     }
     minuteCanvas.setTarget(12);
-    minuteCanvas.setTime(m);
+    minuteCanvas.setTime(minute);
     hourCanvas.setTime(hour+1);
 }
