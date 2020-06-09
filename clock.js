@@ -7,10 +7,10 @@ class Clock {
         this.radius = this.height * 0.90 / 2;
         this.blockColor = 'red';
         this.target = 9;
-        this.hour = 12;
+        this.t = 12;
         this._initClock();
         this.setTarget(22);
-        this.setHour(21);
+        this.setTime(21);
     }
 
     setTarget(target){
@@ -19,8 +19,8 @@ class Clock {
         // this._drawHourBock(this.hour, this.target);
     }
 
-    setHour(hour){
-        this.hour = hour - 3;
+    setTime(t){
+        this.t = t - 3;
         this._initClock();
     }
 
@@ -28,12 +28,12 @@ class Clock {
         this.blockColor = color;
     }
 
-    _drawHourBock(hour, target) {
+    _drawHourBock(t, target) {
         this._drawLineInNumber(target, this.radius * 0.007);
         this.ctx.beginPath();
         this.ctx.moveTo(0, 0);
         this.ctx.fillStyle = this.blockColor;
-        this.ctx.arc(0, 0, this.radius * 0.95, hour * Math.PI / 6, target * Math.PI / 6);
+        this.ctx.arc(0, 0, this.radius * 0.95, t * Math.PI / 6, target * Math.PI / 6);
         this.ctx.fill();
         this.ctx.fillStyle = "#000";
     }
@@ -43,7 +43,6 @@ class Clock {
         for (let p in this.positions) {
             if (this.positions.hasOwnProperty(p)) {
                 this.canvas.setAttribute("style", ""+p+": "+this.positions[p]+";");
-                console.log(""+p+": "+this.positions[p]+";");
             }
         }
         this.canvas.height = this.height;
@@ -51,7 +50,7 @@ class Clock {
         this.ctx = this.canvas.getContext("2d");
         this.ctx.translate(this.radius/0.9, this.radius/0.9);
         this._drawFace();
-        this._drawHourBock(this.hour, this.target);
+        this._drawHourBock(this.t, this.target);
         this._drawNumbers();
         this._drawDelimiter();
     }
