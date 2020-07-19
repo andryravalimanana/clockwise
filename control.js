@@ -1,7 +1,7 @@
 var countdownBtn = document.getElementsByClassName("countdownBtn")[0];
 var countdownEdit = document.getElementsByClassName("countdownEdit")[0];
 var playBtn = document.getElementsByClassName("playBtn")[0];
-var buttonNumbers = [5, 10, 15, 20, 30, 40, 45, 50, 55];
+var buttonNumbers = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
 function setBlockTime(blockTime){
     minuteCanvas.setSubTarget(blockTime/5+minute);
