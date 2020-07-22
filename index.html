@@ -5,20 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/all.min.css">
     <title>Andry Clock</title>
 </head>
 
 <body>
-    <div>
-        <div class="p-relative">
-            <div class="clock">
-                <h3 id="title" class="title">Working time</h3>
-            </div>
-            <canvas id="minuteCanvas"></canvas>
-            <canvas id="hourCanvas"></canvas>
-        </div>
+    <div class="clock">
+        <h3 id="title" class="title">Working time</h3>
+    </div>
+    <div class="p-relative">
+        <canvas id="minuteCanvas"></canvas>
+        <canvas id="hourCanvas"></canvas>
+    </div>
+    <div class="control">
+        <!-- <button class="btn-1" onclick="setBlockTime(1)">1</button> -->
+        <button class="btn-5" onclick="setBlockTime(5)">5</button>
+        <button class="btn-10" onclick="setBlockTime(10)">10</button>
+        <button class="btn-15" onclick="setBlockTime(15)">15</button>
+        <button class="btn-20" onclick="setBlockTime(20)">20</button>
+        <button class="btn-30" onclick="setBlockTime(30)">30</button>
+        <button class="btn-40" onclick="setBlockTime(40)">40</button>
+        <button class="btn-45" onclick="setBlockTime(45)">45</button>
+        <button class="btn-50" onclick="setBlockTime(50)">50</button>
+        <button class="btn-55" onclick="setBlockTime(55)">55</button>
+        <button class="btn-stop" onclick="stopTimer()"><i class="far fa-stop-circle"></button>
     </div>
     <script src="clock.js"></script>
+    <script src="init.js"></script>
+    <script src="control.js"></script>
     <script src="config.js"></script>
 </body>
 
