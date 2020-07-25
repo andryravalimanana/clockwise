@@ -48,6 +48,8 @@ canvas{
     position: absolute;
     bottom: 10%;
     left: 15%;
+    padding-left: 4%;
+    width: 57%;
 }
 
 input{
@@ -64,6 +66,7 @@ button{
     border-radius: 5px;
     background: green;
     color: white;
+    width: 15%;
 }
 
 button:hover {background-color: #3e8e41}
