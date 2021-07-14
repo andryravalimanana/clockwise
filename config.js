@@ -17,7 +17,7 @@ var targets = [
     {
         hour: 13,
         title: "Break time",
-        color: '#FCCD57'
+        color: '#464B4E80'
     },
     {
         hour: 18,
@@ -25,8 +25,13 @@ var targets = [
         color: '#529F8E'
     },
     {
-        hour: 21,
+        hour: 19,
         title: "Thinking time & Planning",
         color: '#DD8DD7'
+    },
+    {
+        hour: 22,
+        title: "Skills development",
+        color: '#5D4681'
     }
 ];
